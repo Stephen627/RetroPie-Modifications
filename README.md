@@ -3,6 +3,9 @@
 ## Dependencies
 - [rclone](https://rclone.org/) with a drive setup called "roms"
 
+## Build Dependencies
+- [pyinstaller](https://github.com/pyinstaller/pyinstaller)
+
 ## Added Functionality
 - On emulation station start up, download all roms with "roms" drive
 - On game close, upload save data to "roms" drive
