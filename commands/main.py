@@ -1,7 +1,6 @@
-import glob
 import argparse
-import importlib
 import helpers.online
+import namespace.cloud
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
@@ -10,10 +9,7 @@ subparsers = parser.add_subparsers(
     title='Commands',
 )
 
-modules = list(Path.cwd().joinpath(__file__).resolve().parent.joinpath('namespace').glob('*.py'))
-for file in modules:
-    module = importlib.import_module('namespace.' + file.name.replace('.py', ''))
-    module.add_args(subparsers)
+namespace.cloud.add_args(subparsers)
 
 args = parser.parse_args()
 
