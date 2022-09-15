@@ -1,28 +1,22 @@
-import sys
+import argparse
 import importlib
 import helpers.online
+import namespace.cloud
 
-def printHelp() -> None:
-    print('[usage]')
-    print('    commands controller command')
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', '--version', help='Show program version', action='store_true')
+subparsers = parser.add_subparsers(
+    title='Commands',
+)
 
-def printNamespaceHelp(namespace: str) -> None:
-    print(f"Namespace help for {namespace}")
+namespace.cloud.add_args(subparsers)
 
-def getNamespace():
-    if len(sys.argv) > 1:
-        return importlib.import_module(f"namespace.{sys.argv[1]}")
+args = parser.parse_args()
 
-    return 0
+if args.version:
+    print('v1.0.0')
 
-if __name__ == '__main__':
-    namespaceModule = getNamespace()
-    if len(sys.argv) == 2:
-        namespaceModule.printHelp()
-
-    elif len(sys.argv) < 3:
-        printHelp()
-
-    else:
-        command = getattr(namespaceModule, sys.argv[2])
-        command()
+if hasattr(args, 'func'):
+    args.func(args)
+else:
+    parser.print_help()
