@@ -20,12 +20,8 @@ jobs:
     - name: Make
       run: make
       
-  upload_artifact:
-  
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/upload-artifact@v3
+    - name: Upload command
+      uses: actions/upload-artifact@v3
       with:
         name: commands
         path: dist/commands
